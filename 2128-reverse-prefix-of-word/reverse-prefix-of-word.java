@@ -3,13 +3,14 @@ class Solution {
         int index = word.indexOf(ch);
         if(index == -1) return word;
         boolean flag = false;
-        String s = "";
+        StringBuilder s = new StringBuilder();
+        char[] array = word.toCharArray();
 
-        for(char c : word.toCharArray()) {
+        for(char c :array) {
             if(!flag) {
-                s = c + s;
+                s.insert(0, c);
             }else {
-                s = s + c;
+                s.append(c);
             }
             if(c == ch) {
                 flag = true;
@@ -19,7 +20,7 @@ class Solution {
 
 
 
-        return s;
+        return s.toString();
         
     }
 }
