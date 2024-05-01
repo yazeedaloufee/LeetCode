@@ -1,26 +1,25 @@
 class Solution {
     public String reversePrefix(String word, char ch) {
+        int index = word.indexOf(ch);
+        if(index == -1) return word;
+        boolean flag = false;
         String s = "";
-        int i = 0;
-        while(i < word.length() && word.charAt(i) != ch){
-            s = word.charAt(i) + s;
-            i++;
+
+        for(char c : word.toCharArray()) {
+            if(!flag) {
+                s = c + s;
+            }else {
+                s = s + c;
+            }
+            if(c == ch) {
+                flag = true;
+            }
         }
-        if(i >= word.length()) {
-            return word;
-        }
-        s = word.charAt(i) + s;
-        i++;
-        while(i < word.length()) {
-            s =  s+ word.charAt(i) ;
-            i++;
-        }
+
+
+
 
         return s;
-
-
-
-
         
     }
 }
