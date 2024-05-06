@@ -15,7 +15,7 @@ class Solution {
     public ListNode removeNodes(ListNode head) {
         ListNode reversed = reverse(head);
         ListNode curr = reversed; 
-        while(curr != null && curr.next != null) {
+        while(curr != null ) {
             while (curr != null && curr.next != null && curr.val > curr.next.val) {
                 curr.next = curr.next.next;
             }
