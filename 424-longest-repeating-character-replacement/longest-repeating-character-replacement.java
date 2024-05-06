@@ -8,7 +8,7 @@ class Solution {
             arr[ans[right] - 'A']++;
             max = Math.max(max, arr[ans[right] - 'A']);
 
-            if ((right - left + 1) - max > k) {   //main line...
+            while ((right - left + 1) - max > k) {   //main line...
                 arr[ans[left++] - 'A']--;
             }
         }
