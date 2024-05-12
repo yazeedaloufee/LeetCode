@@ -21,8 +21,6 @@ class Solution {
             max = Math.max(max,array[y+ v[0]][ x + v[1]]);
 
         }
-        System.out.println("x = "+ x + ", y = "+ y);
-        System.out.println(max);
         return max;
 
     }
