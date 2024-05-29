@@ -14,9 +14,6 @@ class Solution {
         }
         
         int water = 0; 
-        System.out.println(Arrays.toString(maxFromLeft));
-        System.out.println(Arrays.toString(maxFromRight));
-
 
         for(int i = 1; i < length; i++) {
             if( Math.min(maxFromRight[i], maxFromLeft[i]) > height[i])
