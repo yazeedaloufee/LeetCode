@@ -14,28 +14,19 @@
  * }
  */
 class Solution {
+    private int count = 0;
+    private int number = 0;
+    
     public int kthSmallest(TreeNode root, int k) {
-        
-        Deque<TreeNode>queue = new ArrayDeque<>();
-        int counter = 0;
-        // queue.push(root);
-        TreeNode curr = root;
-        while(curr != null || !queue.isEmpty()) {
-            while(curr != null) {
-                queue.push(curr);
-                curr = curr.left;
-            }
-            curr = queue.pop();
-            counter++;
-            if (counter == k) {
-                return curr.val;
-            }
-            curr=curr.right;
-
-
-        }
-
-
-        return curr.val;
+        count = k;
+        dfs(root);
+        return number;        
+    }
+    
+    private void dfs (TreeNode root) {
+        if (root.left != null) dfs(root.left);
+        if (count == 1) number = root.val;
+        --count;
+        if (root.right != null) dfs(root.right);
     }
 }
