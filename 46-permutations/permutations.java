@@ -1,14 +1,13 @@
 class Solution {
     List<List<Integer>> output;
     int[] nums;
-    Set<Integer> track;
+    int[] used;
     public List<List<Integer>> permute(int[] nums) {
         output = new ArrayList<>();
         this.nums = nums;
-        track = new HashSet<>();
+        used = new int[nums.length];
         helper(new ArrayList<>(), 0);
         return output;
-        
     }
 
     public void helper(List<Integer> curr, int index){
@@ -17,12 +16,12 @@ class Solution {
             return;
         }
         for(int i = 0; i < nums.length; i++) {
-            if(!track.contains(nums[i])){
-            track.add(nums[i]);
+            if(used[i] == 0){
+            used[i] = 1;
             curr.add(nums[i]);
             helper(curr, index + 1);
             curr.remove(curr.size() - 1);
-            track.remove(nums[i]);
+            used[i] = 0;
             }
         }
     }
