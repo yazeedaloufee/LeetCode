@@ -4,7 +4,7 @@ class Solution {
     int cols;
     int[][] visited;
     int[][] directions;
-    String word;
+    char[] word;
 
     public boolean exist(char[][] board, String word) {
         this.board = board;
@@ -12,7 +12,7 @@ class Solution {
         cols = board[0].length;
         visited = new int[rows][cols];
         directions = new int[][]{{0, 1}, {1, 0},{0, -1},{-1, 0}};
-        this.word = word;
+        this.word = word.toCharArray();
         for(int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if(findWord(i, j, 0)) return true;
@@ -24,8 +24,8 @@ class Solution {
 
     private boolean findWord(int x, int y, int index){
 
-        if(board[x][y] != word.charAt(index)) return false;
-        if(index == word.length() -1 && board[x][y] == word.charAt(index)) return true;
+        if(board[x][y] != word[index]) return false;
+        if(index == word.length -1 && board[x][y] == word[index])return true;
         visited[x][y] = 1;
 
         for (int[] direction : directions) {
