@@ -15,15 +15,13 @@ class Solution {
 
     public void helper(List<Integer> curr, int sum, int index) {
         if(sum == target) output.add(new ArrayList<>(curr));
-        if(sum > target || index == cand.length) return;
+        if(sum > target) return;
 
         for (int i = index; i < cand.length; i++) {
             if(i > index && cand[i] == cand[i - 1])continue;
-                 curr.add(cand[i]);
-                    helper(curr, sum + cand[i],i +1);
-                    curr.remove(curr.size() -1);
-            
-                   
+            curr.add(cand[i]);
+            helper(curr, sum + cand[i],i +1);
+            curr.remove(curr.size() -1);
         }
     }
 }
