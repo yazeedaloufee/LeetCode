@@ -32,14 +32,11 @@ class Solution {
             int newx = x + direction[0];
             int newy = y + direction[1];
             if(isValid(newx, newy)){
-                visited[newx][newy] = 1;
                 if (findWord(newx, newy, index+1)) return true;
-                visited[newx][newy] = 0;
             }
         }
         visited[x][y] = 0;
         return false;
-
     }
 
 
