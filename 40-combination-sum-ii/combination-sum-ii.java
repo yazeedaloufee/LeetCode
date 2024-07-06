@@ -19,6 +19,7 @@ class Solution {
 
         for (int i = index; i < cand.length; i++) {
             if(i > index && cand[i] == cand[i - 1])continue;
+            if(cand[i] > target) break;
             curr.add(cand[i]);
             helper(curr, sum + cand[i],i +1);
             curr.remove(curr.size() -1);
