@@ -32,7 +32,6 @@ class Trie {
             if(curr.children[word.charAt(i) - 'a'] == null) {
                 return false;
             }
-                  System.out.println(word.charAt(i));
             if(i == word.length() - 1 && curr.children[word.charAt(i) - 'a'].isWord == false){
                 return false;
             }
