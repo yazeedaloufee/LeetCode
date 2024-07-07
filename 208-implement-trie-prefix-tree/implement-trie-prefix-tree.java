@@ -32,14 +32,11 @@ class Trie {
             if(curr.children[word.charAt(i) - 'a'] == null) {
                 return false;
             }
-            if(i == word.length() - 1 && curr.children[word.charAt(i) - 'a'].isWord == false){
-                return false;
-            }
-
-
             curr= curr.children[word.charAt(i) - 'a'];
         }
-        return true;
+        return curr.isWord;
+
+        // return true;
         
     }
     
