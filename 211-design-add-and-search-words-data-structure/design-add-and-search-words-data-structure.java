@@ -41,9 +41,9 @@ class WordDictionary {
                 
             }else if(curr.children[word.charAt(i) - 'a'] == null ) {
                 return false;
-            }else{
-                curr=curr.children[word.charAt(i) - 'a'];    
             }
+                curr=curr.children[word.charAt(i) - 'a'];    
+            
             
         }
         return curr.isWord;
