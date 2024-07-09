@@ -9,6 +9,7 @@ class Solution {
 
         for(int i = 0; i < grid.length; i++) {
             for(int j = 0; j < grid[0].length; j++) {
+                if(visited[i][j]== 0)
                 max = Math.max(dfs(i, j), max);
             }
         }
@@ -17,11 +18,7 @@ class Solution {
     public int dfs(int x, int y) {
         if(x < 0 || y < 0 ||x >= grid.length|| y >= grid[0].length || grid[x][y] == 0 || visited[x][y] == 1) return 0; 
         visited[x][y] = 1;
-        int inMax = 1; 
-        inMax +=  dfs(x+1, y);
-        inMax +=  dfs(x-1, y);
-        inMax +=  dfs(x, y-1);
-        inMax +=  dfs(x, y+1);
-        return inMax;
+        return 1 + dfs(x, y+1) + dfs(x, y - 1) + dfs(x - 1, y) + dfs(x + 1, y);
+       
     }
 }
