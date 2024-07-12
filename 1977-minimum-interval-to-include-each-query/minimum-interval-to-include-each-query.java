@@ -25,7 +25,7 @@ class Solution {
                 j++;
             }
 
-            while(!pq.isEmpty() && (pq.peek()[1] < queries[i] || pq.peek()[0] > queries[i] )) {
+            while(!pq.isEmpty() && pq.peek()[1] < queries[i] ) {
                 pq.poll();
             }
             hm.put(queries[i], pq.isEmpty()? -1 : (pq.peek()[1]-pq.peek()[0] +1));
