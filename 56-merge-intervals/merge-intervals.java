@@ -7,6 +7,7 @@ class Solution {
 
         for(int i = 0; i < intervals.length;) {
             curr = intervals[i];
+            i++;
             while(i < intervals.length && intervals[i][0] <= curr[1]){
                 curr[1] = Math.max(curr[1], intervals[i][1]);
                 i++;
