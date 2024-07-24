@@ -32,9 +32,6 @@ class Solution {
             for (String s : hm.get(i)) {
                 if (turnedOn - i >= 0 && turnedOn - i < 6) {
                     for (String m : mm.get(turnedOn - i)) {
-                        System.out.println(turnedOn - i);
-                        System.out.println(i);
-
                         output.add(s + ":" + m);
                     }
                 }
