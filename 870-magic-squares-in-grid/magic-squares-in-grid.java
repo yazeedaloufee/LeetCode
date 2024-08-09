@@ -14,7 +14,6 @@ class Solution {
         for (int r = 0; r < grid.length - 2; r++) {
             for (int c = 0; c < grid[0].length - 2; c++) {
                 if (isMagicSquare(r, c)) {
-                    System.out.println("r = " + r + ", c = " + c);
                     output++;
                 }
             }
