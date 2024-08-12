@@ -2,11 +2,8 @@ class Solution {
     int[] rank; 
     int[] head;
     public int[] findRedundantConnection(int[][] edges) {
-        int numberOfNodes =0;
-        for(int[] edge: edges) {
-            numberOfNodes = Math.max(edge[1], numberOfNodes);
-            numberOfNodes = Math.max(edge[0], numberOfNodes);
-        }
+        
+        int numberOfNodes =edges.length;
         head = new int[numberOfNodes+1];
         rank = new int[numberOfNodes+1];
         for(int i = 0; i < head.length; i++) {
