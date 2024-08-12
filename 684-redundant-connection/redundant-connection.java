@@ -1,44 +1,39 @@
 class Solution {
-    int[] rank; 
-    int[] head;
     public int[] findRedundantConnection(int[][] edges) {
-        
-        int numberOfNodes =edges.length;
-        head = new int[numberOfNodes+1];
-        rank = new int[numberOfNodes+1];
-        for(int i = 0; i < head.length; i++) {
-            head[i] = i;
+        int n = edges.length;
+        int[] parent = new int[n + 1];
+        int[] rank = new int[n + 1];
+        for (int i = 0; i < n + 1; i++) {
+            parent[i] = i;
+            rank[i] = 1;
         }
-        for(int[] edge : edges) {
-            if(isConnected(edge[1], edge[0])) return edge;
 
-            union(edge[0], edge[1]);
-
+        for (int[] edge : edges) {
+            if (union(edge[0], edge[1], parent, rank))
+                return edge;
         }
-        return new int[2];
+        return new int[0];
 
     }
 
-    private void union(int x , int y) {
-        int xhead = find(x);
-        int yhead = find(y);
+    public int find(int node, int[] parent) {
+        if (parent[node] != node)
+            parent[node] = find(parent[node], parent);
+        return parent[node];
+    }
 
-        if(rank[xhead] > rank[yhead]) {
-            head[yhead] = xhead;
-        }else if(rank[xhead] < rank[yhead]){
-            head[xhead] = yhead;
-        }else {
-            head[yhead] = xhead;
-            rank[xhead]++;
+    public boolean union(int edge1, int edge2, int[] parent, int[] rank) {
+        int parent1 = find(edge1, parent);
+        int parent2 = find(edge2, parent);
+        if (parent1 == parent2)
+            return true;
+        if (rank[parent2] > rank[parent1]) {
+            parent[parent1] = parent2;
+            rank[parent2] += rank[parent1];
+        } else {
+            parent[parent2] = parent1;
+            rank[parent1] += rank[parent2];
         }
-    }
-    private int find (int x) {
-        if(x == head[x]) {
-            return x;
-        }
-    return head[x]= find(head[x]);
-    }
-    private boolean isConnected(int x, int y) {
-        return find(x) == find(y);
+        return false;
     }
 }
