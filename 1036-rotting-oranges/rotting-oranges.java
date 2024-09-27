@@ -27,24 +27,29 @@ class Solution {
 
             iterations++;
         }
+                for(int i = 0; i < grid.length; i++) {
+            System.out.println(Arrays.toString(grid[i]));
+        }
         for(int i = 0; i < grid.length; i++) {
             for(int j = 0; j < grid[0].length; j++) {
                 if(grid[i][j] == 1) return -1;
                 
             }
         }
+
+
         return iterations;
     }
 
     private void bfs(int[] curr, int[][] grid) {
-        visited[curr[0]][curr[1]] = true;
-        grid[curr[0]][curr[1]] = 2;
         for(int i = 0; i < 4; i++) {
             int newR = curr[0] + directions[i][0];
             int newC = curr[1] + directions[i][1];
             if(isValid(newR, newC, grid)){
 
                 visited[newR][newC] = true;
+            grid[newR][newC] = 2;
+
                 q.add(new int[]{newR, newC});
             }
         }
