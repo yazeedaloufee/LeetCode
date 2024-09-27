@@ -42,12 +42,12 @@ class Solution {
     }
 
     private void bfs(int[] curr, int[][] grid) {
+        if(visited[curr[0]][curr[1]]) return;
         for(int i = 0; i < 4; i++) {
             int newR = curr[0] + directions[i][0];
             int newC = curr[1] + directions[i][1];
             if(isValid(newR, newC, grid)){
 
-                visited[newR][newC] = true;
             grid[newR][newC] = 2;
 
                 q.add(new int[]{newR, newC});
