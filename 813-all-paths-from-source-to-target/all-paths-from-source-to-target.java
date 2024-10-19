@@ -15,7 +15,7 @@ class Solution {
         path.add(current);
 
         if (current == graph.length - 1) {
-            pushToOutput(path);
+            output.add(new ArrayList<>(path));
         }
 
         for (int child : graph[current]) {
@@ -25,11 +25,4 @@ class Solution {
         path.removeLast();
     }
 
-    private void pushToOutput(ArrayList<Integer> list) {
-        List<Integer> push = new ArrayList<>();
-        for(int i : list) {
-            push.add(i);
-        }
-        output.add(push);
-    }
 }
