@@ -1,28 +1,33 @@
 class Solution {
     public boolean validPath(int n, int[][] edges, int source, int destination) {
         if(source == destination) return true;
-        Map<Integer, List<Integer>>  hm = new HashMap<>();
+        if(edges== null || edges.length == 0) return false;
 
-        for(int[] edge : edges) {
-            int parentV = edge[0];
-            int childV = edge[1];
-            hm.computeIfAbsent(parentV, k -> new ArrayList<>()).add(childV);
-            hm.computeIfAbsent(childV, k -> new ArrayList<>()).add(parentV);
-        }
+         Set<Integer> visited = new HashSet<>();
 
-        return dfs(source, destination, hm, new HashSet<>());
-        
-    }
+         Map<Integer, List<Integer>> map = new HashMap<>();
 
-    private boolean dfs(int source, int destination, Map<Integer, List<Integer>>  hm, Set<Integer> set){
-        List<Integer> children = hm.getOrDefault(source, new ArrayList<>());
-        if(set.contains(source)) return false;
-        set.add(source);
-        for(int i : children) {
-            if(i == destination) 
-                return true;
-            if(dfs(i, destination, hm, set)) return true;
-        }
-        return false;
+         for (int[] edge : edges) {
+            map.computeIfAbsent(edge[0], (k) -> new ArrayList<>()).add(edge[1]);
+            map.computeIfAbsent(edge[1], (k) -> new ArrayList<>()).add(edge[0]);
+         }
+
+         Deque<Integer> queue = new ArrayDeque<>();
+         queue.add(source);
+         visited.add(source);
+
+         while (!queue.isEmpty()) {
+            int current = queue.poll();
+            for (int number : map.get(current)) {
+                if (number == destination)
+                    return true;
+                if(!visited.contains(number)) {
+                    queue.add(number);
+                    visited.add(number);
+                }
+            }
+         }
+
+         return false;
     }
 }
