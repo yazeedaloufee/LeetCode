@@ -1,28 +1,29 @@
 class Solution {
-    List<List<Integer>> output = new ArrayList<>();
-    Map<Integer, List<Integer>> map = new HashMap<>();
-    int[][] graph;
-
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-        // build adjacency list
-        this.graph = graph;
-        if( graph == null || graph.length == 0 ) return output;
-        dfs(0, new ArrayList<>());
+
+        Set<Integer> visited = new HashSet<>();
+
+        Deque<List<Integer>> queue = new ArrayDeque<>();
+        List<List<Integer>> output = new ArrayList<>();
+        List<Integer> path = new ArrayList<>();
+        path.add(0);
+        queue.add(path);
+
+        while (!queue.isEmpty()) {
+            List<Integer> currentPath = queue.poll();
+            int node = currentPath.get(currentPath.size() - 1);
+
+            for (int nextNode : graph[node]) {
+                List<Integer> newPath = new ArrayList<>(currentPath);
+                newPath.add(nextNode);
+
+                if (nextNode == graph.length - 1) {
+                    output.add(new ArrayList<>(newPath));
+                } else {
+                    queue.add(newPath);
+                }
+            }
+        }
         return output;
     }
-
-    private void dfs(int current, ArrayList<Integer> path){
-        path.add(current);
-
-        if (current == graph.length - 1) {
-            output.add(new ArrayList<>(path));
-        }
-
-        for (int child : graph[current]) {
-            dfs(child, path);
-        }
-
-        path.removeLast();
-    }
-
 }
