@@ -13,7 +13,6 @@ class Solution {
                 counter++;
             }
             if (counter % 2 == 1  && index < chars.length) {
-                chars[index] = c == '0' ? '1' : '0';
                 changes++;
                 index++;
             }
