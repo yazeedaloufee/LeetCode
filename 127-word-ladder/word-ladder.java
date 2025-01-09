@@ -13,10 +13,7 @@ class Solution {
                 hm.put(s, current);
             }
         }
-        for (Set<String> s : hm.values()) {
-            System.out.println(s);
 
-        }
 
         Deque<String> q = new ArrayDeque<>();
         Set<String> visited = new HashSet<>();
