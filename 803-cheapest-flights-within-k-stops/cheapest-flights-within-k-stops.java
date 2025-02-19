@@ -8,10 +8,9 @@ class Solution {
             stop.add(flight);
             hm.put(flight[0], stop);
         }
-        Map<Integer, Integer> seen = new HashMap();
-        for(int i = 0; i < 100; i++) {
-            seen.put(i, Integer.MAX_VALUE);
-        }
+        int[] seen = new int[101];
+
+        Arrays.fill(seen, Integer.MAX_VALUE);
 
         
         Deque<int[]> q = new ArrayDeque<>();
@@ -33,8 +32,8 @@ class Solution {
                 }
 
                 
-                if(currentCost > output || currentCost >= seen.get(currentStop)) continue;
-                seen.put(currentStop, currentCost);
+                if(currentCost > output || currentCost >= seen[currentStop]) continue;
+                seen[currentStop] = currentCost; 
                 List<int[]> nextStops =  hm.get(currentStop);
 
                 if(nextStops != null)
