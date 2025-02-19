@@ -17,7 +17,6 @@ class Solution {
         Deque<int[]> q = new ArrayDeque<>();
         q.add(new int[]{src, 0});
         
-        System.out.println(hm);
         int output = Integer.MAX_VALUE;
         //bfs / eaiser for the number of stops
         int s = k + 1;
