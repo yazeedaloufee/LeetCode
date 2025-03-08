@@ -14,14 +14,12 @@ class Solution {
             if(r - l + 1 == k) {
                 min = Math.min(whiteBlocks, min);
                 if(min == 0) return 0;
-                if(chars[l] == 'W') {
+                if(chars[l++] == 'W') {
                     whiteBlocks--;
                 }
-                l++;
             }
             r++;
         }
         return min;
-        
     }
 }
