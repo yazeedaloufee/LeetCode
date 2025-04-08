@@ -1,43 +1,41 @@
 class Solution {
-    int count = 0;
     public int numberOfComponents(int[][] properties, int k) {
-        Map<Integer, List<Integer>> graph = new HashMap<>();
-
-        for(int i = 0; i < properties.length; i++){
-            for(int j=i+1; j < properties.length; j++){
-                if(i == j) continue;
-                if(intersect(properties[i], properties[j]) >= k) {
-                    graph.computeIfAbsent(i, (x)-> new ArrayList<>()).add(j);
-                    graph.computeIfAbsent(j, (x)-> new ArrayList<>()).add(i);
+        List<List<Integer>> graph = new ArrayList<>();
+        int n = properties.length;
+        for(int i = 0;i<n;i++) graph.add(new ArrayList<>());
+        for(int i = 0;i< n ;i++){
+            for(int j = 0; j<n ; j++)
+                if(intersect(properties[i],properties[j]) >=k ){
+                    graph.get(i).add(j);
+                    graph.get(j).add(i);
                 }
+        }
+        boolean[] visited = new boolean[n];
+        int res = 0;
+        for(int i = 0 ; i< n;i++){
+            if(!visited[i]){
+                dfs(graph,i,visited); res++;
             }
         }
-
-        Set<Integer> visited = new HashSet<>();
-        for(int i = 0; i < properties.length; i++) {
-            if(dfs(i, visited, graph)) {
-                count++;
-            }
-        }
-        return count;
+        return res;
     }
-    public boolean dfs(int i, Set<Integer> visited, Map<Integer, List<Integer>> graph) {
-        if(visited.contains(i)) return false;
-        visited.add(i);
 
-        for (int x : graph.getOrDefault(i, new ArrayList<>())){
-            dfs(x, visited, graph);
+    private void dfs(List<List<Integer>> graph, int cur,boolean[] visited) {
+        visited[cur] = true;
+        for(int nei : graph.get(cur)){
+            if(!visited[nei]) dfs(graph,nei,visited);
         }
-        return true;
     }
-    public int intersect(int[] a, int[] b) {
-        Set<Integer> setA = new HashSet<>();
-        Set<Integer> setB = new HashSet<>();
 
-        for (int x : a) setA.add(x);
-        for (int x : b) setB.add(x);
-
-        setA.retainAll(setB); 
-        return setA.size();
+    int intersect(int[] a,int[] b){
+        boolean[] a1 = new boolean[101];
+        boolean[] b1 = new boolean[101];
+        for(int i : a){
+            a1[i] = true;
+        }
+        for (int n:b)  b1[n] = true;
+        int res = 0;
+        for(int i = 1;i<101;i++) if (a1[i] && b1[i]) res++;
+        return res;
     }
 }
