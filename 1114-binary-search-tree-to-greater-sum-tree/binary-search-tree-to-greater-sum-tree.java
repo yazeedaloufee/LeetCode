@@ -14,30 +14,20 @@
  * }
  */
 class Solution {
-    int sum;
+    int sum = 0;
     public TreeNode bstToGst(TreeNode root) {
-        sum = 0;
-        sum = dfs(root);
-        System.out.println("sum = " + 
-        sum);
-        calcNumber(root);
+        gen(root);
         return root;
     }
-    public void calcNumber(TreeNode root) {
-        if ( root == null) return;
-        calcNumber(root.left);
-        int temp = root.val;
-        root.val = sum;
-        sum -= temp;
-        calcNumber(root.right);
-        return;
 
-    }
-    public int dfs(TreeNode root) {
-        if(root == null) return 0; 
-
-        int left = dfs(root.left);
-        int right = dfs(root.right);
-        return root.val + left + right;
+    public void gen(TreeNode root){
+        if(root==null){
+            return;
+        }
+        gen(root.right);
+        root.val = sum+root.val;
+        sum = root.val;
+        gen(root.left);
+        return ;
     }
 }
