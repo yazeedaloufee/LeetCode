@@ -7,8 +7,6 @@ class Solution {
             min = Math.min(min, start );
             max = Math.max(max, start );
         }
-        System.out.println("min = " + min);
-        System.out.println("max = " + max);
         int range = max - min;
         max = range + lower;
         min  = lower;
