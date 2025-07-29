@@ -1,7 +1,10 @@
 class Solution {
     public String countAndSay(int n) {
-        if (n == 1) return "1";
-        return encoding(countAndSay(n-1));
+        String answer = "1";
+        for (int i = 2; i <=n;i++) {
+            answer = encoding(answer);
+        }
+        return answer;
     }
 
     private String encoding (String input) {
