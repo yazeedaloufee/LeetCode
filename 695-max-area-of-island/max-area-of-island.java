@@ -1,27 +1,35 @@
 class Solution {
+    int[][] directions= new int[][]{{1,0}, {-1, 0}, {0, -1}, {0, 1}};
     public int maxAreaOfIsland(int[][] grid) {
-        int max = 0; 
+        if(grid == null) return 0;
         boolean[][] visited = new boolean[grid.length][grid[0].length];
 
-        for(int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++){
-                max = Math.max(max, dfs(i, j, grid, visited));
+        int max = 0; 
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if(!visited[i][j] && grid[i][j] == 1) {
+                    max = Math.max(max, dfs(i, j, grid, visited));
+                }
             }
         }
         return max;
     }
 
-
-    public int dfs(int i , int j , int[][] grid, boolean[][] visited) {
-        if(i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == 0 || visited[i][j]) {
-            return 0;
+    private int dfs(int r, int c, int[][] grid, boolean[][] visited){
+        visited[r][c] = true;
+        int space = 0;
+        for(int[] direction : directions) {
+            int newR = r + direction[0];
+            int newC = c + direction[1];
+            if(isValid(newR, newC, grid, visited)) {
+                space+=dfs(newR, newC, grid, visited);
+            }
         }
-        visited[i][j] = true;
+        return space + 1;
 
-        return 1 + dfs(i + 1 ,j , grid, visited) +
-                dfs(i - 1 ,j , grid, visited) +
-                dfs(i  ,j + 1 , grid, visited) +
-                dfs(i ,j -1 , grid, visited);
+    }
 
+    private boolean isValid(int r, int c, int[][] grid, boolean[][] visited ) {
+        return r >= 0 && c >= 0 && r <grid.length && c < grid[0].length && !visited[r][c] && grid[r][c] == 1;
     }
 }
