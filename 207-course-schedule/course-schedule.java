@@ -1,45 +1,34 @@
-import java.util.*;
-
 class Solution {
-    boolean[] visited; // Track the visitation status of courses
-    boolean[] inRecStack; // Track the current recursion stack
-    Map<Integer, List<Integer>> hm; // Adjacency list for prerequisites
-
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        hm = new HashMap<>();
-        visited = new boolean[numCourses];
-        inRecStack = new boolean[numCourses]; // Initialize recursion stack
+        // build djacency list
 
-        // Build the adjacency list
-        for (int[] pair : prerequisites) {
-            hm.computeIfAbsent(pair[0], k -> new ArrayList<>()).add(pair[1]);
-        }
+        Map<Integer, List<Integer>> hm = new HashMap<>();
 
-        // Perform DFS on each course
-        for (int i = 0; i < numCourses; i++) {
-            if (!visited[i] && !dfs(i)) {
-                return false; // Cycle detected
-            }
+        for(int[] pair : prerequisites){
+            int course = pair[0];
+            int pre = pair[1];
+            hm.computeIfAbsent(pre, (k)->new ArrayList<>()).add(course);
         }
-        return true; // All courses can be finished
+        int[] state = new int[numCourses];
+        for(int i = 0; i < numCourses; i++) {
+            if(!dfs(i, hm, state)) return false;
+        }
+        return true;
+        
     }
 
-    private boolean dfs(int x) {
-        if (inRecStack[x]) return false; // Cycle detected
-        if (visited[x]) return true; // Already processed
-
-        visited[x] = true;
-        inRecStack[x] = true; // Add to recursion stack
-        List<Integer> children = hm.get(x);
-
-        if (children != null) {
-            for (int n : children) {
-                if (!dfs(n)) {
-                    return false; // Cycle detected in DFS
-                }
-            }
+    private boolean dfs(int node, Map<Integer, List<Integer>> hm,int[] state) {
+        if (state[node] == 1){return false;}
+        if(state[node] == 2) {return true;}
+        state[node] = 1;
+        for(int n : hm.getOrDefault(node, new ArrayList<>())){
+            if(!dfs(n, hm, state))return false;
         }
-        inRecStack[x] = false; // Remove from recursion stack
-        return true; // No cycle found
+
+        state[node] = 2; 
+
+        return true;
+
+
     }
 }
