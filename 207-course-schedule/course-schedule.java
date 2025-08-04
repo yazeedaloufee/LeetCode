@@ -1,34 +1,34 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        // build djacency list
-
-        Map<Integer, List<Integer>> hm = new HashMap<>();
-
-        for(int[] pair : prerequisites){
-            int course = pair[0];
-            int pre = pair[1];
-            hm.computeIfAbsent(pre, (k)->new ArrayList<>()).add(course);
+        Map<Integer, List<Integer>> hm = new HashMap<>(); 
+        int[] indegree = new int[numCourses];
+        for(int[] pair: prerequisites) {
+            hm.computeIfAbsent(pair[1], (k) -> new ArrayList<>()).add(pair[0]);
+            indegree[pair[0]]++;
         }
-        int[] state = new int[numCourses];
+
+        Deque<Integer> queue = new ArrayDeque<>();
+        int courses = 0; 
         for(int i = 0; i < numCourses; i++) {
-            if(!dfs(i, hm, state)) return false;
+            if(indegree[i] == 0) {
+                queue.offer(i);
+            courses++;}
+            
         }
-        return true;
+
+        while(!queue.isEmpty()) {
+            int current = queue.poll();
+
+            for(int n : hm.getOrDefault(current, new ArrayList<>())) {
+                indegree[n]--;
+                if(indegree[n] == 0) {
+                    queue.offer(n);
+                    courses++;
+                }
+            }
+        }
+        return numCourses == courses;
+
         
-    }
-
-    private boolean dfs(int node, Map<Integer, List<Integer>> hm,int[] state) {
-        if (state[node] == 1){return false;}
-        if(state[node] == 2) {return true;}
-        state[node] = 1;
-        for(int n : hm.getOrDefault(node, new ArrayList<>())){
-            if(!dfs(n, hm, state))return false;
-        }
-
-        state[node] = 2; 
-
-        return true;
-
-
     }
 }
